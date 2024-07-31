@@ -1,6 +1,6 @@
 # AlephArt
 Repostorio de equipo Stella
-
+Aquí Valeria
 
 Primeros pasos: 
 
