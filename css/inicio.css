@@ -1,3 +1,5 @@
+/*navbar styles*/
+
 .navbar {
   background-color: #050831;
 }
@@ -28,4 +30,9 @@
   .navbar-nav.ml-auto.order-lg-last {
     flex-direction: row;
   }
+  #loggedOutItems, #loggedInItems {
+    flex-direction: column;
+  }
 }
+
+/*navbar styles*/
