@@ -1,0 +1,96 @@
+
+/* Comenzamos con los estilos de diseño establecidos para el color y fuente de la barra de navegación */
+.navbar {
+background-color: #050831;
+z-index: 500;
+position:absolute;
+}
+
+.nav-item {
+    color: #FFFFFF;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+/* Añadimos estilos a las subclases */
+.navbar-nav.ml-auto {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+.navbar-nav {
+    display: flex;
+    align-items:end; /* Alinea los elementos al final (lado derecho) verticalmente */
+  }
+   
+.navbar-toggler-icon {
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 1em;
+    height: 1em;
+  }
+  
+/* Utilizamos mediaquery para establecer la presentación de la página dependeindo las dimensiones del dispositivo */
+  @media (max-width: 767px) {
+    .navbar-nav.ml-auto {
+      justify-content: flex-start;
+    }
+  }
+
+  /* Damos estilos a los componentes del carrusel */
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    padding: 3rem 1.5rem 3rem 1.5rem;
+    border: none;
+    max-height: 200px;
+    margin-top:16%;
+    opacity: 0.9;
+    background-color: #ffffff00;
+       } /* Ajustar este valor según el padding deseado */
+
+#carouselExampleCaptions {
+  padding: 3rem 1.5rem 3rem 1.5rem;
+}
+
+.carousel-item img {
+  opacity: 0.7; /* Ajusta este valor entre 0 y 1 según el nivel de opacidad deseado */
+}
+
+.conoce {
+  color: #000000;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 3rem;
+  text-align: left;
+}
+
+.name-surname {
+  color: #133072;
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 3rem;
+  text-align: left;
+}
+
+.profession {
+  color: #000000;
+  font-family: "Taviraj", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 3rem;
+  text-align: left;  
+  padding: 0 5rem;
+}
+
+.container {
+  max-width: 500px;
+  margin-left: auto;
+  /*padding: 1px 100px 1px 300px; /* top | right | bottom | left */
+  background-color: rgb(249,0,82,0.5);
+  margin-right:80%;
+  position: relative;
+}
