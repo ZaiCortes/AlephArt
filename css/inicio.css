@@ -1,16 +1,15 @@
-/*navbar styles*/
 
-.navbar {
-  background-color: #050831;
+/*Estilos navbar*/
+.navbar.navbar-dark {
+  background-color: #050831 !important;
 }
 
-.nav-item {
+.navbar-nav , .nav-item , .nav-link {
   color: #ffffff;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-style: normal;
 }
-
 
 .user-actions {
   display: flex;
@@ -26,16 +25,44 @@
   display: inline-flex;
 }
 
-@media (max-width: 991px) {
-  .navbar-nav.ml-auto.order-lg-last {
-    flex-direction: row;
-  }
-  #loggedOutItems, #loggedInItems {
-    flex-direction: column;
-  }
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.85);
 }
 
-/*navbar styles*/
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
+  color: #ffffff;
+}
+
+.navbar-dark .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-dark .navbar-brand {
+  color: #ffffff;
+}
+
+.user-actions .btn.nav-link {
+  padding: 0.25rem;
+}
+
+@media (max-width: 991px) {
+  .navbar-nav {
+      padding-top: 0.5rem;
+  }
+  
+  .user-actions {
+      margin-top: 0.5rem;
+  }
+
+  .navbar-nav.ms-auto.order-lg-last {
+    flex-direction: row;
+}
+#loggedOutItems, #loggedInItems {
+    flex-direction: column;
+}
+}
+/*Estilos navbar*/
 
 /*cards styles*/
 
@@ -66,7 +93,5 @@
   justify-content: space-between;
   max-width: 1200px; /* Ajusta este valor según el ancho máximo que desees para el contenido */
   margin: auto; /* Centra el contenido horizontalmente */
-  padding: 0 20px; /* Añade un pequeño padding para que el contenido no toque los bordes de la pantalla */
 }
-
 /*cards styles*/
