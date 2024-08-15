@@ -63,8 +63,9 @@ position:absolute;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 3rem;
   text-align: left;
+  font-size:3rem;
+  padding: 0 1rem;
 }
 
 .name-surname {
@@ -72,8 +73,9 @@ position:absolute;
   font-family: "Lato", sans-serif;
   font-weight: 700;
   font-style: normal;
-  font-size: 3rem;
   text-align: left;
+  font-size:3rem;
+  padding: 0 1rem;
 }
 
 .profession {
@@ -81,16 +83,39 @@ position:absolute;
   font-family: "Taviraj", serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 3rem;
   text-align: left;  
-  padding: 0 5rem;
+  padding: 0 7rem;
+  font-size:3rem;
 }
 
-.container {
-  max-width: 500px;
-  margin-left: auto;
+.container-color {
   /*padding: 1px 100px 1px 300px; /* top | right | bottom | left */
   background-color: rgb(249,0,82,0.5);
-  margin-right:80%;
-  position: relative;
-}
+  max-width: 50%;
+  max-height: 90%;
+  }
+
+  @media (max-width: 900px) {
+    
+    .carousel-caption {
+       height: 150px;
+       width: 400px;
+       padding: 50% 5%;
+      }
+
+    .container-color {
+      width: 200px;
+      height: 60px;
+    }
+  
+    .conoce {
+      font-size: 1rem;
+      padding-top:10%;
+     }
+    .name-surname {
+      font-size: 1rem; 
+     }
+    .profession {
+      font-size: 1rem;
+    }
+  }
