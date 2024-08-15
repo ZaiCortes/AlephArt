@@ -36,3 +36,37 @@
 }
 
 /*navbar styles*/
+
+/*cards styles*/
+
+.card {
+  border: 1px solid #ccc;
+  background: linear-gradient(to top, #D5E6F7, #FFFFFF);
+  border-radius: 8px;
+  padding: 16px;
+  width: 300px;
+  height: 500px;
+  /* text-align: center; */
+  /* font-family: ; */
+}
+
+.card-img-top {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%; 
+  object-fit: cover;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden; /* Asegura que la imagen se recorte dentro del borde */
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px; /* Ajusta este valor según el ancho máximo que desees para el contenido */
+  margin: auto; /* Centra el contenido horizontalmente */
+  padding: 0 20px; /* Añade un pequeño padding para que el contenido no toque los bordes de la pantalla */
+}
+
+/*cards styles*/
