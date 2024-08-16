@@ -82,7 +82,7 @@
   font-weight: 400;
   font-style: normal;
   text-align: left;
-  font-size: 3rem;
+  font-size: 2.5rem;
   padding: 0 1.5rem;
   width: 320px;
 }
@@ -93,7 +93,7 @@
   font-weight: 700;
   font-style: normal;
   text-align: left;
-  font-size: 3rem;
+  font-size: 2.5rem;
   padding: 0 1.5rem;
   margin: 0 0 0 0;
 }
@@ -105,7 +105,7 @@
   font-style: normal;
   text-align: left;
   padding: 0 8.5rem; /* top | right | bottom | left */
-  font-size: 3rem;
+  font-size: 2.5rem;
   margin: 0 0 0 0;
 }
 
@@ -115,32 +115,209 @@
   max-height: 30%;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 835px) {
+  #carouselExampleCaptions {
+    padding: 2rem 1rem;
+  }
+
   .carousel-caption {
-    height: 150px;
-    width: 400px;
-    padding: 45% 5%;
+    height: 180px;
+    width: 80%;
   }
 
   .container-color {
-    width: 178px;
-    height: 50px;
-    position: absolute;
+    max-width: 60%;
+    height: auto;
   }
 
   .conoce {
-    font-size: 1rem;
-    padding-top: 20%;
-    margin-top: 10%;
+    font-size: 2rem;
+    width: 100%;
   }
+
   .name-surname {
-    font-size: 1rem;
+    font-size: 2rem;
   }
 
   .profession {
-    font-size: 1rem;
-    padding: 0 40%;
+    font-size: 2rem;
+    padding: 0 6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #carouselExampleCaptions {
+    padding: 1rem 0.5rem;
+  }
+
+  .carousel-caption {
+    height: 120px;
+    width: 100%;
+  }
+
+  .container-color {
+    width: 40vw;
+    height: auto;
+    position: relative;
+  }
+
+  .conoce {
+    font-size: 0.8rem;
+    margin-top: 5%;
+    width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  .name-surname {
+    font-size: 0.8rem;
+    padding: 0 0.5rem;
+  }
+
+  .profession {
+    font-size: 0.8rem;
+    padding: 0 0.5rem;
+  }
+}
+
+@media (max-width: 360px) {
+  #carouselExampleCaptions {
+    padding: 0.75rem 0.375rem;
+  }
+
+  .carousel-caption {
+    height: 100px;
+  }
+
+  .container-color {
+    max-width: 40vw;
+    height: auto;
+  }
+
+  .conoce {
+    font-size: 0.7rem;
+    margin-top: 3%;
+    width: 100%;
+    padding: 0 0.375rem;
+  }
+
+  .name-surname {
+    font-size: 0.7rem;
+    padding: 0 0.375rem;
+  }
+
+  .profession {
+    font-size: 0.7rem;
+    padding: 0 0.375rem;
   }
 }
 
 /* Estilos carrusel */
+
+/*cards styles*/
+
+.card {
+  border: 1px solid #D5E6F7;
+  background: linear-gradient(to top, #D5E6F7, #FFFFFF);
+  border-radius: 4px;
+  padding: 16px;
+  width: 100%; 
+  height: 400px;
+  text-align: center;
+  max-width: 300px;
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+}
+.card-img-top {
+  width: 100%;
+  border-radius: 50%; 
+  object-fit: cover;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden; /* Asegura que la imagen se recorte dentro del borde */ 
+  max-width: 250px; 
+  max-height: 250px; 
+  aspect-ratio: 1 / 1; 
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16; /* Añade espacio entre las tarjetas */
+  margin: auto; /* Centra el contenido horizontalmente */
+  max-width: 1220px;
+  padding: 16px;
+}
+
+.card-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #050831; 
+  margin-top: 16px;
+}
+
+.card-subtitle{
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #133072;
+}
+
+.card-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: medium;
+  color: #000000;
+}
+
+@media (max-width: 768px) {
+  .card {
+    max-width: 100%;
+  }
+  
+  .card-img-top {
+    max-width: 200px;
+  }
+  
+  .card-title {
+    font-size: 16px;
+  }
+  
+  .card-subtitle,
+  .card-text {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-img-top {
+    max-width: 150px;
+  }
+  .card {
+    max-width: 100vw;
+    max-height: 40vh;
+  }
+}
+
+/*cards styles*/
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8vh;
+  margin-bottom: 10vh;
+}
+
+#btn-conoce {
+  padding: 10px 20px;
+  background-color: rgb(249, 0, 82);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Poppins", sans-serif;
+}
