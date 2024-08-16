@@ -1,10 +1,11 @@
-
 /*Estilos navbar*/
 .navbar.navbar-dark {
   background-color: #050831 !important;
 }
 
-.navbar-nav , .nav-item , .nav-link {
+.navbar-nav,
+.nav-item,
+.nav-link {
   color: #ffffff;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
@@ -48,50 +49,98 @@
 
 @media (max-width: 991px) {
   .navbar-nav {
-      padding-top: 0.5rem;
+    padding-top: 0.5rem;
   }
-  
+
   .user-actions {
-      margin-top: 0.5rem;
+    margin-top: 0.5rem;
   }
 
   .navbar-nav.ms-auto.order-lg-last {
     flex-direction: row;
-}
-#loggedOutItems, #loggedInItems {
+  }
+  #loggedOutItems,
+  #loggedInItems {
     flex-direction: column;
-}
+  }
 }
 /*Estilos navbar*/
 
-/*cards styles*/
+/* Estilos carrusel */
 
-.card {
-  border: 1px solid #ccc;
-  background: linear-gradient(to top, #D5E6F7, #FFFFFF);
-  border-radius: 8px;
-  padding: 16px;
-  width: 300px;
-  height: 500px;
-  /* text-align: center; */
-  /* font-family: ; */
+#carouselExampleCaptions {
+  padding: 3rem 1.5rem 3rem 1.5rem;
 }
 
-.card-img-top {
-  width: 250px;
-  height: 250px;
-  border-radius: 50%; 
-  object-fit: cover;
-  margin-left: auto;
-  margin-right: auto;
-  overflow: hidden; /* Asegura que la imagen se recorte dentro del borde */
+.carousel-item img {
+  opacity: 0.7;
 }
 
-.cards-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  max-width: 1200px; /* Ajusta este valor según el ancho máximo que desees para el contenido */
-  margin: auto; /* Centra el contenido horizontalmente */
+.conoce {
+  color: #000000;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  font-size: 3rem;
+  padding: 0 1.5rem;
+  width: 320px;
 }
-/*cards styles*/
+
+.name-surname {
+  color: #133072;
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  text-align: left;
+  font-size: 3rem;
+  padding: 0 1.5rem;
+  margin: 0 0 0 0;
+}
+
+.profession {
+  color: #000000;
+  font-family: "Taviraj", serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  padding: 0 8.5rem; /* top | right | bottom | left */
+  font-size: 3rem;
+  margin: 0 0 0 0;
+}
+
+.container-color {
+  background-color: rgb(249, 0, 82, 0.5);
+  max-width: 48%;
+  max-height: 30%;
+}
+
+@media (max-width: 768px) {
+  .carousel-caption {
+    height: 150px;
+    width: 400px;
+    padding: 45% 5%;
+  }
+
+  .container-color {
+    width: 178px;
+    height: 50px;
+    position: absolute;
+  }
+
+  .conoce {
+    font-size: 1rem;
+    padding-top: 20%;
+    margin-top: 10%;
+  }
+  .name-surname {
+    font-size: 1rem;
+  }
+
+  .profession {
+    font-size: 1rem;
+    padding: 0 40%;
+  }
+}
+
+/* Estilos carrusel */
