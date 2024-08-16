@@ -67,20 +67,44 @@
 
 /*cards styles*/
 
-.card {
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16; /* Añade espacio entre las tarjetas */
+  padding: 20px;
+  margin: auto; /* Centra el contenido horizontalmente */
+  max-width: 1700px; /* Ajusta este valor según el ancho máximo que desees para el contenido */
+}
+
+.card-artist {
   border: 1px solid #D5E6F7;
   background: linear-gradient(to top, #D5E6F7, #FFFFFF);
   border-radius: 4px;
-  padding: 16px;
-  width: 300px;
-  height: 400px;
+  width: 250px;
+  height: 350px;
   text-align: center;
-  /* font-family: ; */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar un efecto elevado */
+/* ---tips Astrid--- */
+  flex:1;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-body{
+  min-height: 100px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
 }
 
 .card-img-top {
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%; 
   object-fit: cover;
   margin-left: auto;
@@ -88,19 +112,11 @@
   overflow: hidden; /* Asegura que la imagen se recorte dentro del borde */
 }
 
-.cards-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16; /* Añade espacio entre las tarjetas */
-  margin: auto; /* Centra el contenido horizontalmente */
-  max-width: 1300px; /* Ajusta este valor según el ancho máximo que desees para el contenido */
-}
-
 .card-title {
-  font-family: "Poppins", sans-serif;
+  font-family: "Tavira";
   font-size: 18px;
   font-weight: bold;
+  margin-top: 12px;
   color: #050831; 
 }
 
@@ -117,4 +133,34 @@
   font-weight: medium;
   color: #000000;
 }
+
+.row{
+  display: flex;
+  flex-wrap:wrap;
+}
+
+p{
+  margin-bottom: .5px;
+}
+
 /*cards styles*/
+
+
+/* Botón */
+.btn-enviar{
+  background-color:#F90052;
+  border-color: #F90052;
+}
+
+.div-button{
+  text-align: center;
+}
+/* Botón */
+
+
+/* Footer */
+footer {
+  text-align: center;
+  color: #133072;
+}
+/* Footer */
