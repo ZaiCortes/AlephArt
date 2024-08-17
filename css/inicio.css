@@ -267,20 +267,26 @@
   font-weight: bold;
   margin-bottom: 8px;
   color: #050831;
+  display: flex;
+  justify-content: center;
 }
 
 .card-subtitle {
-  font-family: "Lato", sans-serif;
+  font-family: "Taviraj", serif;
   font-size: 14px;
   font-weight: bold;
   color: #133072;
   margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
 }
 
 .card-text {
   font-family: "Poppins", sans-serif;
   font-size: 12px;
   color: #000000;
+  display: flex;
+  justify-content: center;
 }
 
 /* Media queries */

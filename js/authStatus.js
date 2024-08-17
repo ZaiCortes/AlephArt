@@ -1,6 +1,6 @@
 
 function checkAuthStatus() {
-    return true; //para efectos de prueba retorna false para simular un estado de autenticación
+    return false; //para efectos de prueba retorna false para simular un estado de autenticación
     // Aquí implementariamos una verificación de estado de autenticación con la comprobación de un token en local storage o
     //llamar a una API para verificar el estado de autenticación
   }
