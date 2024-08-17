@@ -3,27 +3,19 @@
     font-family: "Lato", sans-serif;
     font-weight: 700;
     font-style: normal;
+    text-align: center;
   }
   
+  .poppins-regular {
+    font-weight: 400;
+    font-style: normal;
+    text-align: justify;
+  }
 
 h1{ 
-    font-family: "Lato", sans-serif;
     font-size: 3rem;
     color:#050831;
 }
-
-.poppins-regular {
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-
-p{
-    font-family: "Poppins", sans-serif;
-    font-size: 1rem;
-    color:#000000;
-}
-
 
 
 h5{ 
@@ -32,13 +24,56 @@ h5{
     color: #050831;
 }
 
-text-body-secondary{
-    font-family: "Taviraj", serif;
-    font-size: 1rem;
-    color:#133072;
-}
 
 .register{
     font-family: "Poppins", sans-serif;
-    color: #F90052;
+    color: white;
+    background-color: #F90052;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 150px;
+}
+
+.register:hover{
+    scale: 1.2;
+}
+
+
+
+.image-fluid1{
+    max-width: 100%;
+    height: auto;
+}
+
+.col-lg-6{
+    text-align: justify;
+}
+
+
+
+.card:hover{
+scale: .95;
+box-shadow: 0 0 25px #133072 ;
+}
+
+.card-title{
+text-align: center;
+color:#050831;
+}
+
+.card-text{
+    text-align: center;
+    color:#133072;
+}
+.card-description{
+    text-align: justify;
+    color:#133072;
+    font-family: "Taviraj", serif;
+    font-size: 1rem;
+    padding: 15px;
+}
+
+#personal{
+    margin-top: 90px;
 }
