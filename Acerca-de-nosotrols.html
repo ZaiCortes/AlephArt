@@ -26,6 +26,66 @@
 
 
 <body>
+<!--Navbar-->
+    <div id="navbar"></div>
+    <script>
+      fetch('http://localhost:8000/AlephArt-diana-navbar/html/login.html')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text();
+        })
+        .then(data => {
+          // Crear un contenedor temporal para el HTML cargado
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = data;
+    
+          // Definir rutas base para las dos carpetas de imágenes
+          const basePath1 = '/AlephArt-diana-navbar/assets/íconos/';
+          const basePath2 = '/AlephArt-diana-navbar/assets/Logos AlephArt/';
+    
+          // Ajustar las rutas de las imágenes en el HTML cargado
+          const images = tempDiv.querySelectorAll('img');
+          images.forEach(img => {
+            const src = img.getAttribute('src');
+            if (src) {
+              if (src.startsWith('carpeta1/')) {
+                img.setAttribute('src', basePath1 + src);
+              } else if (src.startsWith('carpeta2/')) {
+                img.setAttribute('src', basePath2 + src);
+              } else if (!src.startsWith('http')) {
+                img.setAttribute('src', basePath1 + src); // Ruta predeterminada
+              }
+            }
+          });
+    
+          // Si el HTML cargado tiene hojas de estilo internas, moverlas al documento
+          const styleSheets = tempDiv.querySelectorAll('style');
+          styleSheets.forEach(style => {
+            document.head.appendChild(style.cloneNode(true));
+          });
+    
+          // Si hay enlaces a hojas de estilo externas, incluirlos en el documento
+          const links = tempDiv.querySelectorAll('link[rel="stylesheet"]');
+          links.forEach(link => {
+            const newLink = document.createElement('link');
+            newLink.rel = 'stylesheet';
+            newLink.href = link.href;
+            document.head.appendChild(newLink);
+          });
+    
+          // Añadir el HTML ajustado al elemento con id "navbar"
+          document.getElementById('navbar').innerHTML = tempDiv.innerHTML;
+        })
+        .catch(error => {
+          console.error('Error al cargar:', error);
+        });
+    </script>
+    
+
+
+
 
 
 <br><br>
@@ -40,14 +100,14 @@
             </p><br>
           </div>
           <div class="col">
-            <img  class="img-fluid"  src="/AlephArt/recursosjpg/art-8826329_640.jpg">
+            <img  class="img-fluid"  src="/recursosjpg/art-8826329_640.jpg">
           </div>
         </div>
         <br><br>
         <br><br>
         <div class="row">
           <div class="col-lg-6">
-            <img class="img-fluid" src="/AlephArt/recursosjpg/paint-8808587_640.jpg" ><br>
+            <img class="img-fluid" src="/recursosjpg/paint-8808587_640.jpg" ><br>
           </div>
           <div class="col"><br>
             <h1 class="lato-bold" >Nuestra Misión</h1>
@@ -73,7 +133,7 @@
               <div class="card mb-3">
                   <div class="row g-0">
                       <div class="col-md-4">
-                          <img src="/AlephArt/recursosjpg/equipo/valeria.jpeg" class="img-fluid rounded-start"  id="personal" alt="...">
+                          <img src="/recursosjpg/equipo/valeria.jpeg" class="img-fluid rounded-start"  id="personal" alt="...">
                       </div>
                       <div class="col-md-8">
                           <div class="card-body">
@@ -91,7 +151,7 @@
               <div class="card mb-3">
                   <div class="row g-0">
                       <div class="col-md-4">
-                          <img src="/AlephArt/recursosjpg/equipo/damaris.jpg" class="img-fluid rounded-start" id="personal"  alt="...">
+                          <img src="recursosjpg/equipo/damaris.jpg" class="img-fluid rounded-start" id="personal"  alt="...">
                       </div>
                       <div class="col-md-8">
                           <div class="card-body">
@@ -110,7 +170,7 @@
               <div class="card mb-3">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="/AlephArt/recursosjpg/equipo/astrid.jpg" class="img-fluid rounded-start"  id="personalastrid"  alt="...">
+                        <img src="/recursosjpg/equipo/astrid.jpg" class="img-fluid rounded-start"  id="personalastrid"  alt="...">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -129,7 +189,7 @@
             <div class="card mb-3">
               <div class="row g-0">
                   <div class="col-md-4">
-                      <img src="/AlephArt/recursosjpg/equipo/Karla.jpg" class="img-fluid rounded-start" id="personal"  alt="...">
+                      <img src="/recursosjpg/equipo/Karla.jpg" class="img-fluid rounded-start" id="personal"  alt="...">
                   </div>
                   <div class="col-md-8">
                       <div class="card-body">
@@ -150,7 +210,7 @@
               <div class="card mb-3">
                   <div class="row g-0">
                       <div class="col-md-4">
-                          <img src="/AlephArt/recursosjpg/equipo/zaira.jpeg" class="img-fluid rounded-start"  id="personal"alt="...">
+                          <img src="/recursosjpg/equipo/zaira.jpeg" class="img-fluid rounded-start"  id="personal"alt="...">
                       </div>
                       <div class="col-md-8">
                           <div class="card-body">
@@ -167,7 +227,7 @@
               <div class="card mb-3">
                   <div class="row g-0">
                       <div class="col-md-4">
-                          <img src="/AlephArt/recursosjpg/equipo/Mara.jpg" class="img-fluid rounded-start" id="personal" alt="...">
+                          <img src="/recursosjpg/equipo/Mara.jpg" class="img-fluid rounded-start" id="personal" alt="...">
                       </div>
                       <div class="col-md-8">
                           <div class="card-body">
@@ -184,7 +244,7 @@
               <div class="card mb-3">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="/AlephArt/recursosjpg/equipo/mitzi.jpg" class="img-fluid rounded-start"  id="personal" alt="...">
+                        <img src="/recursosjpg/equipo/mitzi.jpg" class="img-fluid rounded-start"  id="personal" alt="...">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -201,7 +261,7 @@
              <div class="card mb-3">
               <div class="row g-0">
                   <div class="col-md-4">
-                      <img src="/AlephArt/recursosjpg/equipo/diana.jpg" class="img-fluid rounded-start"  id="personal" alt="...">
+                      <img src="/recursosjpg/equipo/diana.jpg" class="img-fluid rounded-start"  id="personal" alt="...">
                   </div>
                   <div class="col-md-8">
                       <div class="card-body">
@@ -218,7 +278,7 @@
           <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="/AlephArt/recursosjpg/equipo/taisGutierrez.jpg" id="personal" class="img-fluid rounded-start" alt="...">
+                    <img src="/recursosjpg/equipo/taisGutierrez.jpg" id="personal" class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
