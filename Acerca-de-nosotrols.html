@@ -27,61 +27,63 @@
 
 <body>
 <!--Navbar-->
-    <div id="navbar"></div>
-    <script>
-      fetch('http://localhost:8000/AlephArt-diana-navbar/html/login.html')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
+   <div id="navbar"></div>
+<script>
+  // Realiza una solicitud para cargar el contenido de la navbar desde login.html
+  fetch('/AlephArt-diana-navbar/html/login.html')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.text();
+    })
+    .then(data => {
+      // Crear un contenedor temporal para el HTML cargado
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = data;
+
+      // Definir rutas base para las dos carpetas de imágenes
+      const basePath1 = '/AlephArt-diana-navbar/assets/íconos/';
+      const basePath2 = '/AlephArt-diana-navbar/assets/Logos AlephArt/';
+
+      // Ajustar las rutas de las imágenes en el HTML cargado
+      const images = tempDiv.querySelectorAll('img');
+      images.forEach(img => {
+        const src = img.getAttribute('src');
+        if (src) {
+          if (src.startsWith('íconos/')) {
+            img.setAttribute('src', basePath1 + src.slice('íconos/'.length));
+          } else if (src.startsWith('Logos AlephArt/')) {
+            img.setAttribute('src', basePath2 + src.slice('Logos AlephArt/'.length));
+          } else if (!src.startsWith('http')) {
+            img.setAttribute('src', basePath1 + src); // Ruta predeterminada
           }
-          return response.text();
-        })
-        .then(data => {
-          // Crear un contenedor temporal para el HTML cargado
-          const tempDiv = document.createElement('div');
-          tempDiv.innerHTML = data;
-    
-          // Definir rutas base para las dos carpetas de imágenes
-          const basePath1 = '/AlephArt-diana-navbar/assets/íconos/';
-          const basePath2 = '/AlephArt-diana-navbar/assets/Logos AlephArt/';
-    
-          // Ajustar las rutas de las imágenes en el HTML cargado
-          const images = tempDiv.querySelectorAll('img');
-          images.forEach(img => {
-            const src = img.getAttribute('src');
-            if (src) {
-              if (src.startsWith('carpeta1/')) {
-                img.setAttribute('src', basePath1 + src);
-              } else if (src.startsWith('carpeta2/')) {
-                img.setAttribute('src', basePath2 + src);
-              } else if (!src.startsWith('http')) {
-                img.setAttribute('src', basePath1 + src); // Ruta predeterminada
-              }
-            }
-          });
-    
-          // Si el HTML cargado tiene hojas de estilo internas, moverlas al documento
-          const styleSheets = tempDiv.querySelectorAll('style');
-          styleSheets.forEach(style => {
-            document.head.appendChild(style.cloneNode(true));
-          });
-    
-          // Si hay enlaces a hojas de estilo externas, incluirlos en el documento
-          const links = tempDiv.querySelectorAll('link[rel="stylesheet"]');
-          links.forEach(link => {
-            const newLink = document.createElement('link');
-            newLink.rel = 'stylesheet';
-            newLink.href = link.href;
-            document.head.appendChild(newLink);
-          });
-    
-          // Añadir el HTML ajustado al elemento con id "navbar"
-          document.getElementById('navbar').innerHTML = tempDiv.innerHTML;
-        })
-        .catch(error => {
-          console.error('Error al cargar:', error);
-        });
-    </script>
+        }
+      });
+
+      // Mover las hojas de estilo internas al documento
+      const styleSheets = tempDiv.querySelectorAll('style');
+      styleSheets.forEach(style => {
+        document.head.appendChild(style.cloneNode(true));
+      });
+
+      // Incluir los enlaces a hojas de estilo externas en el documento
+      const links = tempDiv.querySelectorAll('link[rel="stylesheet"]');
+      links.forEach(link => {
+        const newLink = document.createElement('link');
+        newLink.rel = 'stylesheet';
+        newLink.href = link.href;
+        document.head.appendChild(newLink);
+      });
+
+      // Añadir el HTML ajustado al elemento con id "navbar"
+      document.getElementById('navbar').innerHTML = tempDiv.innerHTML;
+    })
+    .catch(error => {
+      console.error('Error al cargar:', error);
+    });
+</script>
+
     
 
 
