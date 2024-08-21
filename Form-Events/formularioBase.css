@@ -7,7 +7,7 @@ font-family: 'poppins', sans-serif;;
     font-family: 'Lato', sans-serif;
     }
 
-    #formularioContacto {
+    #formularioEvento {
         background-color: rgba(213, 173, 251, 0.2);/*color Mauve con opacidad 20%*/
         border-top-right-radius: 50px;
         border-top-left-radius: 50px;
@@ -17,8 +17,8 @@ font-family: 'poppins', sans-serif;;
         margin: auto;
         width: 100%;
 
+    }
 
-      }
 
       #portada {
         width: 100%;
