@@ -1,5 +1,6 @@
 //Declaramos una constante para declarar los eventos con fines demostrativos:
-const events = [
+/**
+ * const events = [
     {
         id: 1,
         category: 'Painting', 
@@ -103,9 +104,12 @@ const events = [
 
     // Agregar más eventos aquí
 ];
+ */
 
+// Obtener el contenedor de los eventos
 const eventContainer = document.getElementById('eventContainer');
 
+// Función para crear una tarjeta de evento
 function createEventCard(event) {
     const card = document.createElement('div');
     card.className = 'col-md-4'; // Cada tarjeta ocupará 1/3 del ancho del contenedor
@@ -150,5 +154,25 @@ function createEventCard(event) {
     eventContainer.appendChild(card);
 }
 
-// Crear los eventos inicialmente
-events.forEach(createEventCard);
+// Función para cargar eventos desde el localStorage y crear las tarjetas
+function loadEventsFromLocalStorage() {
+    const events = JSON.parse(localStorage.getItem('eventos')) || [];
+    events.forEach(event => {
+        // Adaptar la estructura del evento si es necesario
+        const eventData = {
+            image: event.image || 'ruta/default.jpg', // Imagen por defecto si no se proporciona
+            day: new Date(event.fecha).getDate(), // Obtener el día de la fecha
+            month: new Date(event.fecha).toLocaleString('es-ES', { month: 'short' }), // Obtener el mes de la fecha
+            title: event.nombre,
+            place: `${event.ciudad}, ${event.estado}`,
+            description: event.descripcion
+        };
+        createEventCard(eventData);
+    });
+}
+
+// Cargar los eventos al cargar la página
+loadEventsFromLocalStorage();
+
+// Crear los eventos inicialmente de la const de ejemplos:
+//events.forEach(createEventCard);
