@@ -40,7 +40,7 @@ function createEventCard(event) {
                 </div>
             </div>
             <div class="event-details mt-3">
-                <h4 class="event-title">${event.title}</h4>
+                <h3 class="event-title">${event.title}</h3>
                 <h6 class="event-place">${event.place}.</h6>
                 <p class="event-description">${event.description}</p>
             </div>
