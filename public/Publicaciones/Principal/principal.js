@@ -1,8 +1,14 @@
-// Función para crear una tarjeta
-function createCard(contenido, files, buttonImages) {
+function createCard(usuario, contenido, files = [], buttonImages = []) {
   const card = document.createElement('div');
   card.classList.add('card');
 
+  // Nombre del usuario
+  const cardUser = document.createElement('div');
+  cardUser.classList.add('card-title');
+  //cardUser.textContent = `Publicado por: ${usuario}`;
+
+  const usuarioElement = document.createElement('span');
+  usuarioElement.textContent = usuario;
   // Contenido de la tarjeta
   const cardContent = document.createElement('div');
   cardContent.classList.add('card-content');
@@ -12,7 +18,34 @@ function createCard(contenido, files, buttonImages) {
   cardDescription.classList.add('card-description');
   cardDescription.textContent = contenido;
 
-  // Botones de la tarjeta
+  // Procesar archivos seleccionados
+  Array.from(files).forEach(file => {
+    const fileURL = URL.createObjectURL(file);
+    let element;
+
+    if (file.type.startsWith('image/')) {
+      element = document.createElement('img');
+      element.src = fileURL;
+      element.alt = 'Imagen';
+      element.classList.add('card-image');
+    } else if (file.type.startsWith('audio/')) {
+      element = document.createElement('audio');
+      element.src = fileURL;
+      element.controls = true;
+      element.classList.add('card-image');
+    } else if (file.type.startsWith('video/')) {
+      element = document.createElement('video');
+      element.src = fileURL;
+      element.controls = true;
+      element.classList.add('card-image');
+    }
+
+    if (element) {
+      card.appendChild(element);//Se agrega en la card
+    }
+  });
+
+  // Botones en la misma línea que el nombre de usuario
   const imageButtons = document.createElement('div');
   imageButtons.classList.add('image-buttons');
 
@@ -30,39 +63,11 @@ function createCard(contenido, files, buttonImages) {
     button.appendChild(reactionCount);
     imageButtons.appendChild(button);
   });
-
-  // Procesar archivos seleccionados
-Array.from(files).forEach(file => {
-  const fileURL = URL.createObjectURL(file);
-  let element;
-
-  if (file.type.startsWith('image/')) {
-    element = document.createElement('img');
-    element.src = fileURL;
-    element.alt = 'Imagen';
-    element.style.maxWidth = '200px';
-    element.classList.add('card-image');
-  } else if (file.type.startsWith('audio/')) {
-    element = document.createElement('audio');
-    element.src = fileURL;
-    element.controls = true;
-    element.classList.add('card-image');
-  } else if (file.type.startsWith('video/')) {
-    element = document.createElement('video');
-    element.src = fileURL;
-    element.controls = true;
-    element.style.maxWidth = '300px';
-    element.classList.add('card-image');
-  }
-
-  if (element) {
-    cardContent.appendChild(element);
-  }
-});
-
   // Añadir elementos a la tarjeta
+  cardUser.appendChild(usuarioElement);
+  cardContent.appendChild(cardUser); // Añadir el usuario antes del contenido
   cardContent.appendChild(cardDescription);
-  cardContent.appendChild(imageButtons);
+  cardUser.appendChild(imageButtons);
   card.appendChild(cardContent);
 
   return card;
@@ -70,6 +75,7 @@ Array.from(files).forEach(file => {
 
 // Función para agregar una nueva publicación
 function agregarNuevaPublicacion() {
+  const usuario = "Usuario 1"; // Aquí puedes cambiar el nombre del usuario dinámicamente
   const contenido = document.getElementById('formControl').value;
   const files = document.getElementById('fileInput').files;
   const buttonImages = [
@@ -83,11 +89,8 @@ function agregarNuevaPublicacion() {
     return;
   }
 
-  const nuevaCard = createCard(contenido, files, buttonImages);
+  const nuevaCard = createCard(usuario, contenido, files, buttonImages);
   document.getElementById('card-container').appendChild(nuevaCard);
-  // Insertar la nueva tarjeta al principio del contenedor
-  //const cardContainer = document.getElementById('card-container');
-  //cardContainer.insertBefore(nuevaCard, cardContainer.firstChild);
 
   // Limpiar inputs
   document.getElementById('formControl').value = '';
@@ -104,7 +107,6 @@ document.getElementById('button-publicar').addEventListener('click', agregarNuev
 document.getElementById('iconAddPicture').addEventListener('click', function() {
   document.getElementById('fileInput').click();
 });
-
 
 // Función para mostrar previsualización de archivos seleccionados
 function handleFilePreview(event) {
