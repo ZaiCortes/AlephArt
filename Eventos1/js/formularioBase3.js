@@ -68,7 +68,7 @@ newEventForm.addEventListener('submit', function(event) {
         }).then(() => {
             // Redirigir después de 2 segundos
             setTimeout(() => {
-                window.location.href = '/html/eventos.html'; // Página de eventos
+                window.location.href = '../html/eventos.html'; // Página de eventos
             }, 2000);
         });
         

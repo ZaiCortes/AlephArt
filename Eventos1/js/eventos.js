@@ -25,10 +25,10 @@ function createEventCard(event) {
                        </div>
                         <div class="d-flex">
                             <button class="btn btn-outline-light me-1">
-                               <img src="/resourses/wishlist-star.png" width="20" height="20">
+                               <img src="../resourses/wishlist-star.png" width="20" height="20">
                            </button>
                            <button class="btn btn-outline-light">
-                               <img src="/resourses/calendar-plus.png" width="20" height="20">
+                               <img src="../resourses/calendar-plus.png" width="20" height="20">
                             </button>
                         </div>
                     </div>
@@ -52,7 +52,7 @@ function loadEventsFromLocalStorage() {
     events.forEach(event => {
         // Adaptar la estructura del evento si es necesario
         const eventData = {
-            image: event.image || '/resourses/eventonuevo.png', // Imagen por defecto 
+            image: event.image || '../resourses/eventonuevo.png', // Imagen por defecto 
             day: new Date(event.fecha).getDate(), // Obtener el día de la fecha
             month: new Date(event.fecha).toLocaleString('es-ES', { month: 'short' }), // Obtener el mes de la fecha
             title: event.nombre,
