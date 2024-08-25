@@ -160,7 +160,7 @@ function loadEventsFromLocalStorage() {
     events.forEach(event => {
         // Adaptar la estructura del evento si es necesario
         const eventData = {
-            image: event.image || 'ruta/default.jpg', // Imagen por defecto si no se proporciona
+            image: event.image || '/assets/img-events/evento nuevo.png', // Imagen por defecto 
             day: new Date(event.fecha).getDate(), // Obtener el día de la fecha
             month: new Date(event.fecha).toLocaleString('es-ES', { month: 'short' }), // Obtener el mes de la fecha
             title: event.nombre,
