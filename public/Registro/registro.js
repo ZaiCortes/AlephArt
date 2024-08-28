@@ -54,6 +54,7 @@ document.getElementById('formularioRegistro').addEventListener('submit', functio
         contraseñaError.textContent = 'La contraseña debe tener entre 8 y 16 caracteres, incluyendo al menos un número, una letra mayúscula, una letra minúscula y un carácter especial.';
         isValid = false;
     }
+    
     // Validar que las contraseñas coincidan
     if (contraseña !== contraseña2) {
         contraseña2Error.textContent = 'Las contraseñas no coinciden.';
