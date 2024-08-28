@@ -62,18 +62,54 @@ document.getElementById('formularioRegistro').addEventListener('submit', functio
     }
     // Enviar el formulario si es válido
     if (isValid) {
-        Swal.fire({
-            icon: 'success',
-            title: '¡Listo!',
-            html: 'Haz completado el formulario. <br> ¡Te damos la bienvenida a la comunidad más grande de artistas!',//html, en lugar de text para poder meter salto de línea con <br>
-            customClass: {
-                container: 'my-custom-container',
-                title: 'my-custom-title',
-                content: 'my-custom-content',
-                confirmButton: 'my-custom-confirm-button'
-            },
-            buttonsStyling: false            
-        });
+        // Creamos usuario
+        const newUser = {
+            nombre: nombre,
+            apellido: apellido,
+            email: email,
+            // telefono: telefono,
+            contraseña: contraseña //hay que ocultarla
+        };
+        // obtenemos los usuarios existentes
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+
+        const UserExists = users.some(user => user.email === email);
+
+        if (UserExists) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'El correo electrónico ya está registrado.',
+                customClass: {
+                    container: 'my-custom-container',
+                    title: 'my-custom-title',
+                    content: 'my-custom-content',
+                    confirmButton: 'my-custom-confirm-button'
+                },
+                buttonsStyling: false
+            });
+        } else {
+            // Añadimos el nuevo usuario al arreglo
+            users.push(newUser);
+            // Guardamos los usuarios en el local storage
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            // Mostramos mensaje de éxito
+            Swal.fire({
+                icon: 'success',
+                title: '¡Listo!',
+                html: 'Haz completado el formulario. <br> ¡Te damos la bienvenida a la comunidad más grande de artistas!',//html, en lugar de text para poder meter salto de línea con <br>
+                customClass: {
+                    container: 'my-custom-container',
+                    title: 'my-custom-title',
+                    content: 'my-custom-content',
+                    confirmButton: 'my-custom-confirm-button'
+                },
+                buttonsStyling: false            
+            }).then(() => {
+                window.location.href = '../Publicaciones/Principal/principal.html'
+            });
+        }
     }
 });
 
