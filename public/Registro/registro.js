@@ -70,7 +70,7 @@ document
             nombre: nombre,
             apellido: apellido,
             email: email,
-            // telefono: telefono,
+            telefono: telefono,
             contraseña: contraseña //hay que ocultarla
         };
         // obtenemos los usuarios existentes
