@@ -7,11 +7,11 @@ const app = express();
 app.use(cors());
 
 // Servir archivos estáticos
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
-// Ruta para la página principal (opcional)
+// Ruta para la página principal 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, '../public', 'pantallaPrincipal.html'));
 });
 app.use(express.json());
 // Ruta para guardar/actualizar el archivo JSON
@@ -33,7 +33,7 @@ app.post('/savePublicationData', (req, res) => {
   
   
 
-// Iniciar el servidor en el puerto 8000
+// Iniciar el servidor en el puerto 8080
 app.listen(8080, () => {
     console.log('Servidor escuchando http://localhost:8080');
 });
