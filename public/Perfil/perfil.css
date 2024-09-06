@@ -1,0 +1,204 @@
+/*
+?Paleta de colores.
+*Oxford blue: #050831
+*Yale blue: #133072
+*Columbia blue: #D5E6F7
+*Mauve: #D5ADFB   
+*Folly: #F90052
+*/
+
+#contenedor-general-perfil{
+    max-width: 700px;
+    background-position: center;
+    position: relative;
+}
+
+/*-------------------------BANNER--------------------------*/
+
+#div-imagen-banner{ /*div de la imagen de banner*/
+    position: relative;
+    padding: 0;
+    margin: 0;
+    max-width: 700px;
+    max-height: 350px;
+    object-fit: cover;
+    overflow:hidden; /*oculta el contenido que sobra*/
+}
+#ImagenBannerDePerfil{
+    width: 100%;
+    height: auto;
+}
+#backgroundName{
+    z-index: 1;
+    position: absolute;
+    background-color: rgb(255,255,255, 30%) ;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 250px;
+    margin-left: 50px;
+    text-align: center;
+}
+#textarea-profesion{
+    position: relative;
+    margin-bottom: -87px;
+    max-height: 50px;
+}
+#nombreArtista{
+    z-index: 3;
+    color: white;
+    margin-top: -30px;
+    font-size: 40px;
+    font-family: Loto, sans-serif;
+    font-weight: bolder;
+}
+#text-profesion-visible{
+    font-size: 30px;
+    margin-top: -30px;
+    font-family: Taviraj, sans-serif;
+    font-weight:600;
+    color:black
+}
+/*-------------------------SOBRE MÍ--------------------------*/
+#presentacion-del-artista{/*div general "Sobre mí"*/
+    background-color: #D5E6F7;
+    height: 350px;
+    max-width: 700px;
+    border: 2px black;
+}
+#div-imagenPerfil{
+    position:relative;
+    margin-top: 55px;
+    margin-left: 25px;
+    width: 250px;
+    height: 230px;
+    overflow: hidden;
+}
+#imagenDePerfil{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+#div-sobreMiTitulo{
+    padding-top: 30px;
+    padding-left: 20px;
+    font-family: Lato, sans-serif;
+}
+#div-sobreMiTexto{
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 30px;
+    font-family: Poppins, sans-serif;
+    font-size: small;
+}
+#div-ContactMe{
+    padding-left: 20px;
+    padding-right: 30px;
+    padding-top: 0;
+    font-family: Taviraj, sans-serif;
+    font-weight:lighter;
+}
+
+/*-------------------------PORTAFOLIO--------------------------*/
+#div-titulo-portafolio{
+    color: #133072;
+    font-family: Lato, sans-serif;
+    max-width: 700px;
+    max-height: 200px;
+    padding-bottom: 30px;
+    text-align: center;
+    margin-top: 30px;
+}
+#div-titulo-reciente-proyecto{
+    font-family: Taviraj, sans-serif;
+}
+#div-img-proyecto-reciente{
+    position: relative; 
+    max-width: 315px;
+    max-height: 210px;
+    overflow: hidden;
+}
+#imagen-proyecto-reciente {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+/*-------------------------ICONOS/BOTONES--------------------------*/
+/*botón de editar con ícono*/
+.fi{
+    color:#133072;
+    font-size: 25px;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+.fi:hover {
+    color: #F90052; 
+    cursor: pointer;
+}
+.btn-success{
+    background-color: #D5ADFB; 
+    border-color: #D5ADFB;
+    color: black;
+    cursor: pointer;
+    font-family: Poppins, sans-serif;
+}
+.btn-success:hover{
+    background-color:#F90052;
+    border-color: #F90052;
+    color: white;
+}
+/* Ocultar los iconos de edición */
+.botonEditar {
+    display: none;
+}
+/* Mostrar los iconos cuando se active la clase*/
+.mostrar-iconos .botonEditar {
+    display: inline;
+}
+/*botones en banner*/
+#boton-configurar{
+    position: absolute; 
+    top: 10px; 
+    left: 10px; 
+    color: white;
+    padding: 10px; 
+}
+#boton-configurar:hover{
+color:#F90052;
+cursor: pointer;
+}
+#boton-editar-banner{
+    position: absolute; 
+    top: 10px; 
+    right: 10px; 
+    color: white;
+    padding: 10px; 
+}
+#boton-editar-banner:hover{
+color:#F90052;
+cursor: pointer;
+}
+/*botones Sobre mí*/
+#boton-editar-foto-perfil{
+    position: absolute; 
+    top: -10px; 
+    right: 0px; 
+    color: #133072;
+    padding: 10px; 
+}
+#boton-editar-foto-perfil:hover{
+color:#F90052;
+cursor: pointer;
+}
+/*botones en Portafolio*/
+#boton-editar-foto-proyecto{
+    position: absolute; 
+    top: 10px; 
+    right: 10px; 
+    color: white;
+    padding: 10px; 
+}
+#boton-editar-foto-proyecto:hover{
+color:#F90052;
+cursor: pointer;
+}
