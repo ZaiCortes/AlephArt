@@ -30,7 +30,7 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <img 
-        src="../resourses/Logod5e6f7 (2).png"
+        src="../assets/Logod5e6f7 (2).png"
         width="35"
         height="35"
         alt="Logo Aleph Art"
@@ -49,13 +49,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav me-auto">
-        <a class="nav-item nav-link" href="../index.html">Inicio</a>
-        <a class="nav-item nav-link" href="../Acerca/Acerca-de-nosotrols.html">Acerca de nosotras</a>
-        <a class="nav-item nav-link" href="../Contacto/contacto.html">Contacto</a>
+        <a class="nav-item nav-link" href="../../pantallaPrincipal.html">Inicio</a>
+        <a class="nav-item nav-link" href="../../Acerca/Acerca-de-nosotras.html">Acerca de nosotras</a>
+        <a class="nav-item nav-link" href="../../Contacto/contacto.html">Contacto</a>
         <!-- Items que son visibles cuando el usuario inicio sesión -->
         <div id="loggedInItems" style="display: flex">
-          <a class="nav-item nav-link" href="../html/eventos.html">Eventos</a>
-          <a class="nav-item nav-link" href="../html/publicaciones.html"
+          <a class="nav-item nav-link" href="../../Eventos/html/eventos.html">Eventos</a>
+          <a class="nav-item nav-link" href="../../Publicaciones/Principal/principal.html"
             >Publicaciones</a
           >
         </div>
@@ -69,7 +69,7 @@
     >
       <a class="nav-link" href="/public/html/perfil.html" title="Profile">
         <img
-          src="../resourses/fotografa 1-perfil (1).png"
+          src="../assets/fotografa 1-perfil (1).png"
           alt="Profile"
           class="rounded-circle"
           width="55"
@@ -78,7 +78,7 @@
       </a>
       <button class="btn nav-link" title="Logout" id="exit-button">
         <img
-          src="../resourses/exit-white.png"
+          src="../assets/exit-white.png"
           alt="Logout"
           width="30"
           height="30"
@@ -99,9 +99,10 @@
 
                    <br>
                    <h1 class="titulo ">Crear Evento</h1>
-                   <div class="col">
-                   <img src="../resourses/audience-1867754_1280.jpg" class="img-fluid" id="portada">
-                   
+                   <div class="containerI">
+                   <img src="../resourses/audience-1867754_1280.jpg" alt="img-form-crete-events" class="img-fluid" id="portada">
+                   <button type="button" id="addImgEvents" class="btnIm">Agregar imagen</button>
+                   <input  type="file" id="inputImg"  style="display: none;">
                   </div>
                    <br>  <br> 
                     
@@ -169,7 +170,7 @@
                         <div class="col-md-3">
                           <label for="inputcategory" class="form-label"></label>
                           <select id="inputCategory" class="form-select" >
-                             <option value="Categoría" selected>Categoría</option>
+                             <option value="Categoría" selected>Categoría</option> <!--Este creo que se quitaría para que no quede como opción-->
                              <option value="Categoría1">Arte Urbano</option>
                              <option value="Categoría2">Tecnologías</option>
                              <option value="Categoría3">Música</option>
@@ -179,8 +180,16 @@
                          <span id="inputCategoryError" class="error-message text-danger"></span>
                       </div>
               </div>
-              <br><br>
-            
+              <br>
+              <!--campo hora-->
+              <div class="form-group">
+                <label for="hora" class="form-label">Hora del evento:</label>
+                <br>
+                <input class="form-control" type="time" id="inputHora" name="inputHora">
+                <span id="inputHoraError" class="error-message text-danger"></span>
+              </div>
+
+
 
               <div class="form-group">
                    <label for="mode" class="labels"></label>
@@ -203,7 +212,10 @@
                <button type="submit" class="btn btn-danger 
                btn-enviar"> Crear Evento</button>
                <a id="emailA"></a>
+               <a href="./eventos.html" class="btn btn-secondary btn-cancelar">Cancelar</a>
             </div>
+
+            
              <br><br><br><br>
                 
              </form>

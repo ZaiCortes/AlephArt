@@ -22,10 +22,10 @@ function createEventCard(event) {
                             </div>
                             <div class="d-flex">
                                 <button class="btn btn-outline-light me-1">
-                                    <img src="../resourses/wishlist-star.png" width="20" height="20">
+                                    <img src="../assets/wishlist-star.png" width="20" height="20">
                                 </button>
                                 <button class="btn btn-outline-light">
-                                    <img src="../resourses/calendar-plus.png" width="20" height="20">
+                                    <img src="../assets/calendar-plus.png" width="20" height="20">
                                 </button>
                             </div>
                         </div>
@@ -34,15 +34,16 @@ function createEventCard(event) {
                         <h4 class="event-title">${event.title}</h4>
                         <h6 class="event-place">${event.place}.</h6>
                         <p class="event-description flex-grow-1">${event.description}</p>
+                        
                         <br>
                         <a href="../html/formularioEditar.html?id=${event.id}">
                         <button class="btn btn-outline-light edit-event-btn">
-                            <img src="../resourses/pen-field.png" width="20" height="20">
+                            <img src="../assets/pen-field.png" width="20" height="20">
                         </button>
                         </a>
                         
                         <button class="btn btn-outline-light delete-event-btn">
-                            <img src="../resourses/trash.png" width="20" height="20">
+                            <img src="../assets/trash.png" width="20" height="20">
                         </button>
                     </div>
                 </div>
@@ -52,7 +53,21 @@ function createEventCard(event) {
 
     // Añadir eventos a los botones de edición y eliminación
     card.querySelector('.edit-event-btn').addEventListener('click', () => editEvent(event.id));
-    card.querySelector('.delete-event-btn').addEventListener('click', () => deleteEvent(event.id));
+    card.querySelector('.delete-event-btn').addEventListener('click', () => Swal.fire({
+        title: "¿Estás segur@?",
+        text: "¡Una vez que elimines tu evento no podrás revertir esto!",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Eliminar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          card.remove(); // Elimina la tarjeta del DOM
+          deleteEvent(index); // Elimina la publicación del almacenamiento
+        }
+      }));
 
     eventContainer.appendChild(card);
 }
@@ -61,17 +76,21 @@ function createEventCard(event) {
 function loadEventsFromLocalStorage() {
     const events = JSON.parse(localStorage.getItem('eventos')) || [];
     events.forEach(event => {
+        // Convertir la fecha a un objeto Date y ajustarla a la zona horaria
+        const eventDate = new Date(event.fecha + 'T00:00:00'); // Asegura que la fecha se interprete correctamente
+        
         const eventData = {
             id: event.id,
-            image: event.image || '../resourses/eventonuevo.png',
-            day: new Date(event.fecha).getDate(),
-            month: new Date(event.fecha).toLocaleString('es-ES', { month: 'short' }),
+            image: '../assets/eventonuevo.png' || event.image, //se cambió el orden de la condicional para que se vea la imagen predeterminada antes de event.image
+            day: eventDate.getUTCDate(), // Usar getUTCDate() para ajustar las zonas horarias automáticamente
+            month: eventDate.toLocaleString('es-MX', { month: 'short', timeZone: 'UTC' }), //Formato MX, muestra un mes corto y ajusta la zona horaria
             title: event.nombre,
-            place: `${event.ciudad}, ${event.estado}`,
+            place: `${event.ciudad}, ${event.estado}, ${event.hora} hrs`,
             description: event.descripcion
         };
         createEventCard(eventData);
     });
+    
 }
 
 // Función para editar un evento
@@ -79,11 +98,9 @@ function editEvent(eventId) {
     const events = JSON.parse(localStorage.getItem('eventos')) || [];
     const eventToEdit = events.find(event => event.id === eventId);
     
-    if (eventToEdit) {
-        // Aquí puedes abrir un formulario prellenado para editar el evento
-        // Luego de editar, guarda los cambios y actualiza localStorage
-    }
 }
+
+
 
 // Función para eliminar un evento
 function deleteEvent(eventId) {
@@ -97,3 +114,4 @@ function deleteEvent(eventId) {
 
 // Cargar los eventos al cargar la página
 loadEventsFromLocalStorage();
+
