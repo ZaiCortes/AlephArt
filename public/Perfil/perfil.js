@@ -114,3 +114,45 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+//Funcion para cargar las publicaciones del usuario en la galeria
+function loadPosts() {
+    const posts = JSON.parse(localStorage.getItem('items')) || [];
+    console.log(posts);
+    const gallery = document.getElementById('gallery');
+    gallery.innerHTML = ''; // Clear existing content
+
+    const postsWithImages = posts.filter(post => post.img && post.img.trim() !== "");
+    console.log(postsWithImages);
+
+    postsWithImages.forEach((post, index) => {
+      const imgContainer = document.createElement('div');
+      imgContainer.className = 'gallery-img-container';
+      
+      const img = document.createElement('img');
+      img.src = post.img;
+      img.className = 'gallery-img';
+      img.alt = `Gallery image ${index + 1}`;
+      img.dataset.description = post.description || '';
+      
+      img.addEventListener('click', function() {
+        openImageModal(this.src, this.dataset.description);
+      });
+      
+      imgContainer.appendChild(img);
+      gallery.appendChild(imgContainer);
+    });
+  }
+//Función para que se abra el modal al dar click en la imagen
+  function openImageModal(imageSrc, description) {
+    const modal = new bootstrap.Modal(document.getElementById('modalContainer'));
+    const modalImage = document.getElementById('modalImage');
+    const modalDescription = document.getElementById('modalDescription');
+    
+    modalImage.src = imageSrc;
+    modalDescription.textContent = description;
+    
+    modal.show();
+  }
+
+  document.addEventListener('DOMContentLoaded', loadPosts);
