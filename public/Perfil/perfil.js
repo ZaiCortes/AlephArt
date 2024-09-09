@@ -117,20 +117,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //Funcion para cargar las publicaciones del usuario en la galeria
 function loadPosts() {
-    const posts = JSON.parse(localStorage.getItem('items')) || [];
+    const posts = JSON.parse(localStorage.getItem('publicaciones')) || [];
     console.log(posts);
     const gallery = document.getElementById('gallery');
     gallery.innerHTML = ''; // Clear existing content
 
-    const postsWithImages = posts.filter(post => post.img && post.img.trim() !== "");
-    console.log(postsWithImages);
+    const postsWithFiles = posts.filter(post => 
+        post.files && post.files.length > 0 && post.files[0].trim() !== ""
+    );
 
-    postsWithImages.forEach((post, index) => {
+      postsWithFiles.forEach((post, index) => {
       const imgContainer = document.createElement('div');
       imgContainer.className = 'gallery-img-container';
       
       const img = document.createElement('img');
-      img.src = post.img;
+      img.src = post.files[0];;
       img.className = 'gallery-img';
       img.alt = `Gallery image ${index + 1}`;
       img.dataset.description = post.description || '';
@@ -143,6 +144,8 @@ function loadPosts() {
       gallery.appendChild(imgContainer);
     });
   }
+
+
 //Función para que se abra el modal al dar click en la imagen
   function openImageModal(imageSrc, description) {
     const modal = new bootstrap.Modal(document.getElementById('modalContainer'));
