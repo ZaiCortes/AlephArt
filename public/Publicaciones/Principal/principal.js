@@ -211,5 +211,3 @@ document.getElementById('iconAddPicture').addEventListener('click', function() {
 // Vincular la función de previsualización al input de archivo
 document.getElementById('fileInput').addEventListener('change', handleFilePreview);
 
-// Cargar las publicaciones al cargar la página
-document.addEventListener('DOMContentLoaded', loadItemsFromLocalStorage); //Recarga la página y muestra las publicaciones guardadas
