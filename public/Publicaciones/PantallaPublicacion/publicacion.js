@@ -53,7 +53,6 @@ function loadPublicationFromLocalStorage(index) {
           <!-- Aquí se crean las cards con nuevos comentarios-->
           ${comentarios.map(comment => `
             <div class="comment">
-              <img src="${comment.image}" alt="User Avatar" class="comment-avatar">
               <div class="comment-content">
                 <div class="comment-username">${comment.username}</div>
                 <div class="comment-text">${comment.text}</div>
@@ -174,7 +173,6 @@ function handleComment(index) {
     // Crear un nuevo comentario con la información del usuario actual
     const newCommentHTML = `
       <div class="comment">
-        <img src="${currentUser.image}" alt="User Avatar" class="comment-avatar">
         <div class="comment-content">
           <div class="comment-username">${currentUser.username}</div>
           <div class="comment-text">${text}</div>
