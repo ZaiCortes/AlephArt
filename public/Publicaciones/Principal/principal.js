@@ -55,7 +55,7 @@ function createCard(usuario, contenido, files = [], imageUrl = '', index, fechaC
 
   //Se añade evento para redirigir a comentarios
 commentButton.addEventListener('click', () => {
-  window.location.href = `/Publicaciones/PantallaPublicacion/pantallaPublicacion?index=${index}`;
+  window.location.href = `../PantallaPublicacion/pantallaPublicacion.html?index=${index}`;
 });
 
   // Eventos de edición
