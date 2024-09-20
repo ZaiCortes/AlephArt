@@ -163,10 +163,12 @@ function deletePost(index, card) {
 //---------AÑADIR COMENTARIOS EN PUBLICACIONES----------------
 function handleComment(index) {
   const text = document.getElementById('new-comment-text').value;
+  const nombre = localStorage.getItem('userName') || 'Usuario Anónimo';
+  const apellido = localStorage.getItem('userLastName') || '';
   const currentUser = {
-    username: "Usuario Actual", // Este sería el nombre del usuario que está haciendo el comentario
-    image: "ruta/a/la/imagen/de/perfil.jpg" // Esta sería la ruta de la imagen del perfil del usuario
-  };
+    username: `${nombre} ${apellido}`.trim(), // Combina nombre y apellido
+   /* image: "ruta/a/la/imagen/de/perfil.jpg"*/ // Esta sería la ruta de la imagen del perfil del usuario
+  }; 
 
   if (text) {
     // Crear un nuevo comentario con la información del usuario actual
@@ -198,7 +200,7 @@ function handleComment(index) {
     publicacion.comments.push({
       username: currentUser.username,
       text: text,
-      image: currentUser.image
+      /*image: currentUser.image*/
     });
 
     // Guardar las publicaciones actualizadas en localStorage

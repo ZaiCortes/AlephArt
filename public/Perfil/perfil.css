@@ -126,6 +126,9 @@
     height: 100%;
     object-fit: cover; 
 }
+#text-proyectoReciente-visible{
+font-family: Poppins, sans-serif;
+}
 /*-------------------------ICONOS/BOTONES--------------------------*/
 /*botón de editar con ícono*/
 .fi{

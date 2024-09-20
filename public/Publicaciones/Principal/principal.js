@@ -55,7 +55,7 @@ function createCard(usuario, contenido, files = [], imageUrl = '', index, fechaC
 
   //Se añade evento para redirigir a comentarios
 commentButton.addEventListener('click', () => {
-  window.location.href = `/Publicaciones/PantallaPublicacion/pantallaPublicacion.html?index=${index}`;
+  window.location.href = `/Publicaciones/PantallaPublicacion/pantallaPublicacion?index=${index}`;
 });
 
   // Eventos de edición
@@ -123,7 +123,10 @@ function deletePublicationData(index) {
 
 // Función para agregar una nueva publicación y guardarla en el localStorage
 async function agregarNuevaPublicacion() {
-  const usuario = "Usuario 1";
+  const nombre = localStorage.getItem('userName') || 'Usuario Anónimo';
+  const apellido = localStorage.getItem('userLastName') || '';
+  const usuario = `${nombre} ${apellido}`.trim(); // Combina nombre y apellido
+
   const contenido = document.getElementById('formControl').value;
   const files = document.getElementById('fileInput').files;
 
