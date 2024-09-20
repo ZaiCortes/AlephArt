@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
     // Obtener el ID del evento desde la URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -47,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('descripcion').value = eventToEdit.descripcion;
 
             // Actualizar la imagen si es necesario
-            document.getElementById('portada').src =  eventToEdit.image || '/public/Eventos/assets/audience-1867754_1280.jpg'; //Se cambió el orden d ela condición para mostrar la imagen predeterminada
+            document.getElementById('portada').src =  eventToEdit.image || '/public/Eventos/assets/audience-1867754_1280.jpg' ; //Se cambió el orden d ela condición para mostrar la imagen predeterminada
         }
     }
 
