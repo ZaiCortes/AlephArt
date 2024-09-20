@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const newEventForm = document.querySelector('#formularioEvento');
-
+    
+    // Verificar si estamos editando un evento existente
     if (!newEventForm) {
         console.error('El formulario con id "formularioEvento" no se encuentra en el DOM.');
         return;
@@ -9,24 +10,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const eventId = urlParams.get('id');
 
+    // Vincula el boton agregar imagen con el input de archivo
     document.getElementById('addImgEvents').addEventListener('click', function() {
         document.getElementById('inputImg').click();
-    });
+        });
 
-    document.getElementById('inputImg').addEventListener('change', function() {
-        const files = document.getElementById('inputImg').files;
-        if (files.length > 0) {
-            const file = files[0];
-            const fileURL = URL.createObjectURL(file);
-            document.getElementById('portada').src = fileURL;
-            item.image = fileURL;
-            document.getElementById('inputImg').value = '';
-        }
-    });
+        document.getElementById('inputImg').addEventListener('change', function() {
+            const files = document.getElementById('inputImg').files;
+            if (files.length > 0) {
+                const file = files[0]; 
+                const fileURL = URL.createObjectURL(file);
+        
+                document.getElementById('portada').src = fileURL;
+        
+                // Guarda la URL en el objeto item
+                item.image = fileURL;
+        
+                // Limpia el input
+                document.getElementById('inputImg').value = '';
+            }
+        });
 
     newEventForm.addEventListener('submit', function(event) {
+        console.log('Formulario enviado');
+        // Prevent default action
         event.preventDefault();
 
+        // Obtener los valores de los inputs
         const item = {
             nombre: document.getElementById('nombre').value.trim(),
             inputDate: document.getElementById('inputDate').value.trim(),
@@ -37,11 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
             inputMode: document.getElementById('inputMode').value,
             descripcion: document.getElementById('descripcion').value.trim(),
             image: document.getElementById('portada').src,
-
         };
 
         const errores = [];
-        
+
         // Limpiar mensajes anteriores
         document.getElementById('nombreError').textContent = '';
         document.getElementById('inputDateError').textContent = '';
@@ -86,22 +95,22 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('descripcionError').textContent = 'Este campo es obligatorio.';
         }
 
+        // Mostrar alertas Swal según el número de errores
         if (errores.length === 0) {
             Swal.fire({
                 icon: "success",
                 title: "¡Formulario enviado!",
                 text: "Formulario enviado correctamente. Tu evento será publicado."
             }).then(() => {
-                const apiUrl = 'https://alephart.up.railway.app/api/events';
+                // Almacenar o actualizar el evento en localStorage
+                let eventos = JSON.parse(localStorage.getItem('eventos')) || [];
 
                 if (eventId) {
                     // Editar evento existente
-                    fetch(`${apiUrl}/${eventId}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
+                    const index = eventos.findIndex(event => event.id === eventId);
+                    if (index !== -1) {
+                        eventos[index] = {
+                            id: eventId,
                             image: item.image,
                             nombre: item.nombre,
                             fecha: item.inputDate,
@@ -111,73 +120,42 @@ document.addEventListener('DOMContentLoaded', () => {
                             hora: item.inputHora,
                             modalidad: item.inputMode,
                             descripcion: item.descripcion
-                        })
-                    })
-                    .then(response => {
-                        if (!response.ok) throw new Error('Error en la actualización');
-                        return response.json();
-                    })
-                    .then(data => {
-                        // Redirigir después de 2 segundos
-                        setTimeout(() => {
-                            window.location.href = '../html/eventos.html';
-                        }, 2000);
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        Swal.fire({
-                            icon: "error",
-                            title: "Error",
-                            text: "No se pudo actualizar el evento."
-                        });
-                    });
+                        };
+                        localStorage.setItem('eventos', JSON.stringify(eventos));
+                    }
                 } else {
                     // Crear nuevo evento
-                    fetch(apiUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            event_name: item.nombre,
-                            event_description: item.descripcion,
-                            event_photo: item.image,
-                            event_date: item.inputDate,
-                            event_time: item.inputHora,
-                            userId: 1,
-                            userProfileId: 1,
-                            eventModeId: item.inputMode,
-                            eventCategoryId: item.inputCategory,
-                            locationCityId: item.inputCity,
-                            locationStateId: item.inputState
-                        })
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Error en la creación del evento: ${response.statusText}`);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log('Evento creado con éxito:', data); // Mensaje de éxito en consola
-                    })
-                    .catch(error => {
-                        console.error('Error en la creación del evento:', error); // Mensaje de error en consola
-                    });
-                    
-                    
+                    const nuevoEvento = {
+                        id: Date.now().toString(), // Usar timestamp como ID único
+                        image: item.image,
+                        nombre: item.nombre,
+                        fecha: item.inputDate,
+                        ciudad: item.inputCity,
+                        estado: item.inputState,
+                        categoria: item.inputCategory,
+                        hora: item.inputHora,
+                        modalidad: item.inputMode,
+                        descripcion: item.descripcion
+                    };
+                    eventos.push(nuevoEvento);
+                    localStorage.setItem('eventos', JSON.stringify(eventos));
                 }
 
-                // Limpiar los campos del formulario
-                document.getElementById('nombre').value = '';
-                document.getElementById('inputDate').value = '';
-                document.getElementById('inputCity').value = '';
-                document.getElementById('inputState').value = 'Estado';
-                document.getElementById('inputCategory').value = 'Categoría';
-                document.getElementById('inputHora').value = '';
-                document.getElementById('inputMode').value = 'Modalidad';
-                document.getElementById('descripcion').value = '';
+                // Redirigir después de 2 segundos
+                setTimeout(() => {
+                    window.location.href = '../html/eventos.html'; // Página de eventos
+                }, 2000);
             });
+            
+            // Limpiar los campos del formulario
+            document.getElementById('nombre').value = '';
+            document.getElementById('inputDate').value = '';
+            document.getElementById('inputCity').value = '';
+            document.getElementById('inputState').value = 'Estado'; // Reestablecer valor predeterminado
+            document.getElementById('inputCategory').value = 'Categoría'; // Reestablecer valor predeterminado
+            document.getElementById('inputHora').value = '';
+            document.getElementById('inputMode').value = 'Modalidad'; // Reestablecer valor predeterminado
+            document.getElementById('descripcion').value = '';
         } else if (errores.length === 1) {
             Swal.fire({
                 icon: "error",
@@ -201,30 +179,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Cargar datos del evento para edición si existe
     if (eventId) {
-        fetch(`https://alephart.up.railway.app/api/events/${eventId}`)
-            .then(response => {
-                if (!response.ok) throw new Error('Error al cargar el evento');
-                return response.json();
-            })
-            .then(eventoToEdit => {
-                document.getElementById('eventId').value = eventoToEdit.id;
-                document.getElementById('nombre').value = eventoToEdit.nombre;
-                document.getElementById('inputDate').value = eventoToEdit.fecha;
-                document.getElementById('inputCity').value = eventoToEdit.ciudad;
-                document.getElementById('inputState').value = eventoToEdit.estado;
-                document.getElementById('inputCategory').value = eventoToEdit.categoria;
-                document.getElementById('inputHora').value = eventoToEdit.hora;
-                document.getElementById('inputMode').value = eventoToEdit.modalidad;
-                document.getElementById('descripcion').value = eventoToEdit.descripcion;
-                document.getElementById('portada').src = eventoToEdit.image;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                Swal.fire({
-                    icon: "error",
-                    title: "Error",
-                    text: "No se pudo cargar el evento."
-                });
-            });
+        const eventos = JSON.parse(localStorage.getItem('eventos')) || [];
+        const eventoToEdit = eventos.find(event => event.id === eventId);
+
+        if (eventoToEdit) {
+            document.getElementById('eventId').value = eventoToEdit.id;
+            document.getElementById('nombre').value = eventoToEdit.nombre;
+            document.getElementById('inputDate').value = eventoToEdit.fecha;
+            document.getElementById('inputCity').value = eventoToEdit.ciudad;
+            document.getElementById('inputState').value = eventoToEdit.estado;
+            document.getElementById('inputCategory').value = eventoToEdit.categoria;
+            document.getElementById('inputHora').value = eventoToEdit.hora;
+            document.getElementById('inputMode').value = eventoToEdit.modalidad;
+            document.getElementById('descripcion').value = eventoToEdit.descripcion;
+            document.getElementById('portada').src = eventoToEdit.image;
+        }
     }
 });
