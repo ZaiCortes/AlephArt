@@ -6,17 +6,16 @@ function createCard(usuario, contenido, files = [], imageUrl = '', index, fechaC
 
   let fileElements = '';
 
-  Array.from(files).forEach(file => {
-    const fileURL = typeof file === 'string' ? file : URL.createObjectURL(file);
-    console.log('fileURL:', fileURL); // Verificar la URL del archivo
-    if (file.type?.startsWith('image/') || fileURL.startsWith('blob:')) {
-      fileElements += `<img src="${fileURL}" alt="Imagen" class="card-image">`;
-    } else if (file.type?.startsWith('audio/')) {
-      fileElements += `<audio src="${fileURL}" alt="audio" controls class="card-image"></audio>`;
-    } else if (file.type?.startsWith('video/')) {
-      fileElements += `<video src="${fileURL}" controls class="card-image"></video>`;
+  files.forEach(file => {
+    if (file.startsWith('data:image/')) {
+      fileElements += `<img src="${file}" alt="Imagen" class="card-image">`;
+    } else if (file.startsWith('data:audio/')) {
+      fileElements += `<audio src="${file}" controls class="card-image"></audio>`;
+    } else if (file.startsWith('data:video/')) {
+      fileElements += `<video src="${file}" controls class="card-image"></video>`;
     }
   });
+
 
   card.innerHTML = `
   <div class="card-media">
@@ -56,7 +55,7 @@ function createCard(usuario, contenido, files = [], imageUrl = '', index, fechaC
 
   //Se añade evento para redirigir a comentarios
 commentButton.addEventListener('click', () => {
-  window.location.href = `/Publicaciones/PantallaPublicacion/pantallaPublicacion.html?index=${index}`;
+  window.location.href = `../PantallaPublicacion/pantallaPublicacion.html?index=${index}`;
 });
 
   // Eventos de edición
@@ -95,6 +94,15 @@ commentButton.addEventListener('click', () => {
   return card;
 }
 
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
+
 // Actualizar los datos de la publicación en el localStorage
 function updatePublicationData(index, updatedData) {
   const publicaciones = JSON.parse(localStorage.getItem("publicaciones")) || [];
@@ -114,8 +122,11 @@ function deletePublicationData(index) {
 }
 
 // Función para agregar una nueva publicación y guardarla en el localStorage
-function agregarNuevaPublicacion() {
-  const usuario = "Usuario 1";
+async function agregarNuevaPublicacion() {
+  const nombre = localStorage.getItem('userName') || 'Usuario Anónimo';
+  const apellido = localStorage.getItem('userLastName') || '';
+  const usuario = `${nombre} ${apellido}`.trim(); // Combina nombre y apellido
+
   const contenido = document.getElementById('formControl').value;
   const files = document.getElementById('fileInput').files;
 
@@ -126,23 +137,24 @@ function agregarNuevaPublicacion() {
 
   const publicaciones = JSON.parse(localStorage.getItem("publicaciones")) || [];
 
-  // Crear una lista de URLs para los archivos
-  const fileURLs = Array.from(files).map(file => URL.createObjectURL(file));
+  // Convertir archivos a base64
+  const filePromises = Array.from(files).map(file => fileToBase64(file));
+  const fileBase64 = await Promise.all(filePromises);
 
-  const fechaCreacion = new Date().toLocaleString(); // Captura la fecha y hora actual
+  const fechaCreacion = new Date().toLocaleString();
 
   const nuevaPublicacion = {
     name: usuario,
     description: contenido,
-    files: fileURLs,
-    date: fechaCreacion // Guarda la fecha en el objeto
+    files: fileBase64,
+    date: fechaCreacion
   };
 
   publicaciones.push(nuevaPublicacion);
   localStorage.setItem("publicaciones", JSON.stringify(publicaciones));
 
   // Crear la nueva tarjeta
-  const card = createCard(usuario, contenido, files, '', publicaciones.length - 1, fechaCreacion);
+  const card = createCard(usuario, contenido, fileBase64, '', publicaciones.length - 1, fechaCreacion);
   document.getElementById('card-container').appendChild(card);
 
   // Limpiar inputs
@@ -165,32 +177,32 @@ function loadItemsFromLocalStorage() {
 }
 
 // Función para mostrar previsualización de archivos seleccionados
-function handleFilePreview(event) {
+// Modificar la función handleFilePreview para usar base64
+async function handleFilePreview(event) {
   const fileInput = event.target;
   const files = fileInput.files;
   const previewContainer = document.getElementById('preview-container');
 
-  // Limpiar el contenedor de previsualización
   previewContainer.innerHTML = '';
 
-  Array.from(files).forEach(file => {
-    const fileURL = URL.createObjectURL(file);
+  for (const file of files) {
+    const fileBase64 = await fileToBase64(file);
     let element;
 
     if (file.type.startsWith('image/')) {
       element = document.createElement('img');
-      element.src = fileURL;
+      element.src = fileBase64;
       element.alt = 'Imagen';
       element.style.maxWidth = '200px';
       element.classList.add('img-preview');
     } else if (file.type.startsWith('audio/')) {
       element = document.createElement('audio');
-      element.src = fileURL;
+      element.src = fileBase64;
       element.controls = true;
       element.classList.add('audio-preview');
     } else if (file.type.startsWith('video/')) {
       element = document.createElement('video');
-      element.src = fileURL;
+      element.src = fileBase64;
       element.controls = true;
       element.style.maxWidth = '300px';
       element.classList.add('video-preview');
@@ -199,11 +211,12 @@ function handleFilePreview(event) {
     if (element) {
       previewContainer.appendChild(element);
     }
-  });
+  }
 }
 
-// Vincular la función al botón "Publicar"
-document.getElementById('button-publicar').addEventListener('click', agregarNuevaPublicacion);
+document.getElementById('button-publicar').addEventListener('click', async () => {
+  await agregarNuevaPublicacion();
+});
 
 // Vincular el ícono de multimedia con el input de archivo
 document.getElementById('iconAddPicture').addEventListener('click', function() {

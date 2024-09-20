@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Función para validar credenciales en el backend
 async function validarCredenciales(email, contraseña) {
     try {
@@ -19,18 +20,39 @@ async function validarCredenciales(email, contraseña) {
     } catch (error) {
         console.error('Error al validar las credenciales:', error);
         return false; // En caso de error, tratar como credenciales inválidas
+=======
+// Función para validar credenciales
+async function validarCredenciales(email, password) {
+    try {
+        const response = await fetch("https://alephart.up.railway.app/api/users");
+
+        if (!response.ok) {
+            throw new Error("Error");
+        }
+
+        const usuarios = await response.json();
+        console.log("Usuarios obtenidos:", usuarios);
+        // Buscar si hay un usuario que coincida con el email y la contraseña
+        const usuario = usuarios.find(user => user.email === email && user.password === password);
+
+        return usuario || null; // Regresa el usuario autenticado o null
+    } catch (error) {
+        console.error(error);
+        return null; // En caso de error
+>>>>>>> Perfil
     }
 }
+
 
 // Manejar el inicio de sesión
 document.getElementById("formularioRegistro").addEventListener("submit", async function(event) {
     event.preventDefault();
 
     const email = document.getElementById("email").value.trim();
-    const contraseña = document.getElementById("inputPassword").value.trim();
+    const password = document.getElementById("inputPassword").value.trim();
 
     // Validar campos vacíos
-    if (!email || !contraseña) {
+    if (!email || !password) {
         Swal.fire({
             icon: "warning",
             title: "Campos vacíos",
@@ -39,9 +61,26 @@ document.getElementById("formularioRegistro").addEventListener("submit", async f
         return;
     }
 
+<<<<<<< HEAD
     // Validar credenciales con el backend
     const credencialesValidas = await validarCredenciales(email, contraseña);
     if (credencialesValidas) {
+=======
+    // Validar credenciales
+    try {
+        const usuario = await validarCredenciales(email, password);
+        console.log("Usuario autenticado:", usuario);
+        if (usuario) {
+    // Confirmar que las propiedades existen
+    console.log("ID del usuario:", usuario.id_user);
+    console.log("Nombre del usuario:", usuario.first_name);
+    console.log("Apellido del usuario:", usuario.last_name);
+               // Almacenar en localStorage
+    localStorage.setItem("userId", usuario.id_user);
+    localStorage.setItem("userName", usuario.first_name);
+    localStorage.setItem("userLastName", usuario.last_name);
+
+>>>>>>> Perfil
         Swal.fire({
             icon: "success",
             title: "Inicio de sesión exitoso",
@@ -58,4 +97,13 @@ document.getElementById("formularioRegistro").addEventListener("submit", async f
             text: "Nombre de usuario o contraseña incorrectos.",
         });
     }
+} catch (error) {
+    console.error(error);
+    Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Hubo un problema al iniciar sesión. Inténtalo de nuevo más tarde.",
+    });
+    }
 });
+

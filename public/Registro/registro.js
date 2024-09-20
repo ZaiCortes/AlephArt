@@ -66,68 +66,75 @@ document
 
     // Enviar el formulario si es válido
     if (isValid) {
-      // Creamos un objeto con los datos del usuario
-      const newUser = {
-        firstName: nombre,
-        lastName: apellido,
-        email: email,
-        phoneNumber: telefono,
-        password: contraseña // Puedes hacer el hash en el backend
-      };
-
-      // Realizamos la petición al backend
-      fetch('/api/users/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newUser)
-      })
-      .then(response => {
-        if (response.ok) {
-          return response.json(); // Si la respuesta es exitosa
-        } else if (response.status === 409) {
-          // Si el correo ya está registrado (manejar el error 409 conflict)
-          throw new Error('El correo electrónico ya está registrado.');
-        } else {
-          throw new Error('Error en el registro. Intenta nuevamente.');
+    // Verificar si el correo ya existe
+    fetch(`https://alephart.up.railway.app/api/users?email=${encodeURIComponent(email)}`) // encodeURIComponent se asegura de que los caracteres especiales en una cadena (como símbolos @) sean transformados en un formato que pueda ser transmitido a través de una URL sin causar problemas.
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error al verificar usuario');
         }
-      })
-      .then(data => {
-        // Mostrar mensaje de éxito y redirigir a la página de login
-        Swal.fire({
-          icon: 'success',
-          title: '¡Listo!',
-          html: 'Te has registrado correctamente. <br> ¡Bienvenido!',
-          customClass: {
-            container: 'my-custom-container',
-            title: 'my-custom-title',
-            content: 'my-custom-content',
-            confirmButton: 'my-custom-confirm-button'
-          },
-          buttonsStyling: false
-        }).then(() => {
-          window.location.href = "/login"; // Redirigir a la página de login
-        });
-      })
-      .catch(error => {
-        // Mostrar mensaje de error si hubo algún problema en el registro
-        Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-          text: error.message,
-          customClass: {
-            container: 'my-custom-container',
-            title: 'my-custom-title',
-            content: 'my-custom-content',
-            confirmButton: 'my-custom-confirm-button'
-          },
-          buttonsStyling: false
-        });
+        return response.json();
+    })
+    .then(users => {
+      const UserExists = users.some(user => user.email === email);
+
+      if (UserExists) {
+        throw new Error('El correo electrónico ya está registrado.'); // Lanza un error específico
+      } else {
+        // Creamos usuario
+        const newUser = {
+          first_name: nombre,
+          last_name: apellido,
+          email: email,
+          phone_number: telefono,
+          password: contraseña 
+      };
+        // Solicitud POST a la API para crear el nuevo usuario
+  return fetch('https://alephart.up.railway.app/api/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newUser)
       });
     }
-  });
-
+})
+    .then(response => {
+      if (!response.ok) throw new Error('Error al registrarse');
+          return response.json();
+        })
+.then(data => {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Listo!',
+                html: 'Haz completado el formulario. <br> ¡Te damos la bienvenida a la comunidad más grande de artistas!',//html, en lugar de text para poder meter salto de línea con <br>
+                customClass: {
+                    container: 'my-custom-container',
+                    title: 'my-custom-title',
+                    content: 'my-custom-content',
+                    confirmButton: 'my-custom-confirm-button'
+                },
+                buttonsStyling: false            
+            }).then(() => {
+                window.location.href = "/login";
+            });
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: '¡Error!',
+                text: error.message,
+                customClass: {
+                    container: 'my-custom-container',
+                    title: 'my-custom-title',
+                    content: 'my-custom-content',
+                    confirmButton: 'my-custom-confirm-button'
+                },
+                buttonsStyling: false
+            });
+        });
+}
+});
 // Función para validar email
 function validateEmail(email) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
